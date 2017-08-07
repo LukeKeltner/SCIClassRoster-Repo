@@ -3,6 +3,7 @@ $(document).ready(function()
 	var userName;
 	var userTime;
 	var index;
+	var deleteRow;
 
 	var classTimes = ['Monday 1/1 7:00pm', 'Tuesday 1/2 4:00pm', 'Wednesday 1/3 6:30pm', 'Thursday 1/4 7:00pm']
 
@@ -14,8 +15,10 @@ $(document).ready(function()
 
 	function resetStudentList()
 	{
-		$('.student-container').html('<table class=\"table table-striped table-hover student-table\">')
-		$('.student-table').html('<th><h2>Who are You?</h2></th>')
+		var studentContainer = $('.student-container')
+		var studentTable = $('<table class=\"table table-striped table-hover student-table\">')
+		studentTable.html('<th><h2>Who are You?</h2></th>')
+		studentContainer.html(studentTable)
 	}
 
 	function getCurrentStudents()
@@ -43,10 +46,11 @@ $(document).ready(function()
 	$('.submit').on('click', function()
 	{
 		students.splice(index, 1)
-		resetStudentList()
+		//resetStudentList()
 		$('#'+userTime).append('<tr><td>'+userName+'</td></tr>')
 		console.log(students)
-		getCurrentStudents()
+		//getCurrentStudents()
+		deleteRow.remove()
 	})
 
 	$(document).on('click', '.user-name', function()
@@ -61,6 +65,7 @@ $(document).ready(function()
 	$('.user-time').on('click', function()
 	{
     	var time = $(this).text()
+    	deleteRow = $(this)  //Hmmmmmmmmm
     	userTime = $(this).attr("id")
     	$('#confirm-time').html(time)
     	console.log(userTime)
