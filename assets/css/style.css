@@ -3,10 +3,10 @@ body
 	margin-top:30px;
 }
 
-.class
+/* .class
 {
 	border: 1px solid black;
-}
+} */
 
 .row
 {
@@ -16,4 +16,14 @@ body
 h2
 {
 	font-size:20px;
+}
+
+p
+{
+	font-size: 30px;
+}
+
+.label-danger
+{
+	display:none;
 }
