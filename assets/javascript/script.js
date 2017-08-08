@@ -13,7 +13,7 @@ $(document).ready(function()
 	var putStudentInClass = $('.class-table')
 	var classOptionsTable = $('.class-options-table')
 
-	var students = ['Luke', 'Jason', 'Amanda', 'Randy', 'Jessica', 'Lauren', 'Maggy', 'Jack', 'Sam', 'Zach', 'Danny', 'Carol', 'Tom', 'Larry', 'Terry']
+	var students = ['Brendan', 'Luke', 'Jason', 'Amanda', 'Randy', 'Jessica', 'Lauren', 'Maggy', 'Jack', 'Sam', 'Zach', 'Danny', 'Carol', 'Tom', 'Larry', 'Terry']
 
 
 	function resetStudentList()
