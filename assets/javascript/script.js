@@ -97,6 +97,7 @@ $(document).ready(function()
 
     	if (studentsLeft===0)
     	{
+    		timePicked = false;
     		$('#confirm-time').html('That class is full!')
     	}
 
