@@ -1,5 +1,22 @@
 $(document).ready(function() 
 {
+
+	  // Initialize Firebase
+	var config = 
+	{
+		apiKey: "AIzaSyAfuG7PnzqM5KfHrgbCYOFhTky5C4_mKww",
+	    authDomain: "sci-i-scheduling.firebaseapp.com",
+	    databaseURL: "https://sci-i-scheduling.firebaseio.com",
+	    projectId: "sci-i-scheduling",
+	    storageBucket: "",
+	    messagingSenderId: "860012777169"
+	};
+
+  	firebase.initializeApp(config);
+
+  	var database = firebase.database()
+
+
 	var namePicked = false;
 	var timePicked = false;
 	var userName;
@@ -7,6 +24,7 @@ $(document).ready(function()
 	var index;
 	var deleteRow;
 	var maxClassSize;
+	var test = true;
 
 	var classTimes = ['Monday 1/1 7:00pm', 'Tuesday 1/2 4:00pm', 'Wednesday 1/3 6:30pm', 'Thursday 1/4 7:00pm']
 
@@ -14,6 +32,30 @@ $(document).ready(function()
 	var classOptionsTable = $('.class-options-table')
 
 	var students = ['Brendan', 'Luke', 'Jason', 'Amanda', 'Randy', 'Jessica', 'Lauren', 'Maggy', 'Jack', 'Sam', 'Zach', 'Danny', 'Carol', 'Tom', 'Larry', 'Terry']
+
+	console.log("Hi!")
+
+	database.ref('students').once('value', function(snap)
+	{
+
+		var tempStudents = []
+		database.ref('students').remove()
+		
+		for (var i=0; i<students.length; i++)
+		{
+			database.ref('students/'+i).set(students[i])
+		}
+		test = false;
+
+		
+/*		for (var i=0; i<snap.val().length; i++)
+		{
+			console.log(snap.val()[i])
+			var newStudent = $('<tr><td>'+snap.val()[i]+'</td></tr>')
+			newStudent.attr('class', 'user-name')
+			$('.student-table').append(newStudent)
+		}*/
+	})
 
 
 	function resetStudentList()
@@ -37,6 +79,11 @@ $(document).ready(function()
 		}
 	}
 
+	function placeStudent()
+	{
+		database.ref('students/'+i).remove()
+	}
+
 	maxClassSize = Math.floor(students.length/4)+1
 
 	$('.students-left').html(maxClassSize)
@@ -51,7 +98,7 @@ $(document).ready(function()
 		classOptionsTable.append(inputClass)
 	}
 
-	getCurrentStudents()
+	//getCurrentStudents()
 
 	$('.submit').on('click', function()
 	{
@@ -85,6 +132,7 @@ $(document).ready(function()
     	userName = $(this).text()
     	console.log(userName)
     	index = students.indexOf(userName)
+    	placeStudent(index)
     	$('#confirm-name').html(userName)
     	console.log(event)
 	});
