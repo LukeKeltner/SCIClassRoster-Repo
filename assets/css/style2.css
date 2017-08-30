@@ -1,0 +1,53 @@
+body
+{
+	margin-top:30px;
+	background-color: lightgreen;
+}
+
+/* .class
+{
+	border: 1px solid black;
+} */
+
+.row
+{
+	margin-top:30px;
+}
+
+h2
+{
+	font-size:20px;
+}
+
+p
+{
+	font-size: 30px;
+}
+
+.label-danger
+{
+	display:none;
+}
+
+h4
+{
+	text-align: center;
+	width:100%;
+	border:1px solid gray;
+	background-color: white;
+}
+
+h2
+{
+	text-align: center;
+	height:50px;
+	width:100%;
+	border:1px solid gray;
+	background-color: lightblue;
+}
+
+.title
+{
+	font-size: 20px;
+	background-color: lightblue;
+}

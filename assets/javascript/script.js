@@ -1,6 +1,5 @@
 $(document).ready(function() 
 {
-
 	  // Initialize Firebase
 	var config = 
 	{
@@ -15,7 +14,6 @@ $(document).ready(function()
   	firebase.initializeApp(config);
 
   	var database = firebase.database()
-
 
 	var namePicked = false;
 	var timePicked = false;
@@ -37,15 +35,75 @@ $(document).ready(function()
 
 	database.ref('students').once('value', function(snap)
 	{
+		var studentContainer = $('.student-container')
+		var studentTable = $('<table class=\"table table-striped table-hover student-table\">')
+		var tableBody = $('<tbody>')
+		studentContainer.html(studentTable)
+		studentTable.html(tableBody)
+		tableBody.html('<tr><th><h2>Who are You?</h2></th></tr>')
 
-		var tempStudents = []
-		database.ref('students').remove()
-		
-		for (var i=0; i<students.length; i++)
+		if (!snap.hasChild('notPicked'))
 		{
-			database.ref('students/'+i).set(students[i])
+			console.log("notPicked does NOT exist.  Creating it now...")
+
+			for (var i=0; i<students.length; i++)
+			{
+				database.ref('students/notPicked/'+i).set(students[i])
+				var newStudent = $('<tr><td>'+students[i]+'</td></tr>')
+				newStudent.attr('class', 'user-name')
+				$('.student-table').append(newStudent)
+			}
 		}
-		test = false;
+
+		else if (snap.hasChild('notPicked'))
+		{
+			var tempStudents = []
+
+			console.log("notPicked DOES exist.  Here is the snap value")
+			console.log(snap.val().notPicked)
+
+			for (var i=0; i<students.length; i++)
+			{
+				if (snap.val().notPicked[i] !== undefined)
+				{
+					tempStudents.push(snap.val().notPicked[i])
+				}
+				
+			}
+
+			console.log("there are "+tempStudents.length+" amount of students in tempStudents")
+			console.log("temp students: "+tempStudents)
+			database.ref('/students/notPicked').remove()
+
+			for (var i=0; i<tempStudents.length; i++)
+			{
+				database.ref('students/notPicked/'+i).set(tempStudents[i])
+				var newStudent = $('<tr><td>'+tempStudents[i]+'</td></tr>')
+				newStudent.attr('class', 'user-name')
+				$('.student-table').append(newStudent)
+			}
+		}
+	})
+
+/*		database.ref('players').once('value').then(function(snap)
+		{
+			console.log(snap.hasChild('notPicked'))
+
+			if (!snap.hasChild('not-picked'))
+			{
+				console.log("not picked does NOT exist.  Creating it now...")
+				for (var i=0; i<students.length; i++)
+				{
+					database.ref('students/not-picked/'+i).set(students[i])
+				}
+			}
+
+			else if (snap.hasChild('not-picked'))
+			{
+				console.log("not picked DOES exist.  Here is the snap value")
+				console.log(snap.val())
+			}
+		})*/
 
 		
 /*		for (var i=0; i<snap.val().length; i++)
@@ -55,7 +113,7 @@ $(document).ready(function()
 			newStudent.attr('class', 'user-name')
 			$('.student-table').append(newStudent)
 		}*/
-	})
+	/*})*/
 
 
 	function resetStudentList()
@@ -79,9 +137,9 @@ $(document).ready(function()
 		}
 	}
 
-	function placeStudent()
+	function placeStudent(i)
 	{
-		database.ref('students/'+i).remove()
+		database.ref('students/notPicked/'+i).remove()
 	}
 
 	maxClassSize = Math.floor(students.length/4)+1
@@ -157,5 +215,4 @@ $(document).ready(function()
     		console.log(userTime)
     	}
 	});
-
 })
